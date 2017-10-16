@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FintechHomework</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ok">Ok</string>
+    <string name="result">Result</string>
 </resources>
