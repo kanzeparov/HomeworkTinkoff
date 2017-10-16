@@ -5,14 +5,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.franck.fintechhomework.MainActivity">
+<LinearLayout
+    android:layout_width="368dp"
+    android:layout_height="495dp"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/linearLayour">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/btnback"
+            android:onClick="OnClickFragment"
+            android:text="@string/back"
+            android:layout_weight="1
+"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/btnadd"
+            android:onClick="OnClickFragment"
+            android:layout_weight="1"
+            android:text="@string/add"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/btnfirst"
+            android:onClick="OnClickFragment"
+            android:text="@string/firstnum"
+            android:layout_weight="1
+"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/btnsecond"
+            android:onClick="OnClickFragment"
+            android:layout_weight="1"
+            android:text="@string/secondnum"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/operatiorbtn"
+            android:onClick="OnClickFragment"
+            android:text="@string/operator"
+            android:layout_weight="1
+"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/btnres"
+            android:onClick="OnClickFragment"
+            android:layout_weight="1"
+            android:text="@string/result"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/container">
+    </LinearLayout>
+</LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

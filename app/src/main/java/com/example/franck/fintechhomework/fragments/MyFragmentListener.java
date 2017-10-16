@@ -5,4 +5,5 @@ package com.example.franck.fintechhomework.fragments;
  */
 
 public interface MyFragmentListener {
+    void myCallBack(int i);
 }

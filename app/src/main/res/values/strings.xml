@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">FintechHomework</string>
+    <string name="back">Back</string>
+    <string name="add">Add</string>
+    <string name="push">push</string>
+    <string name="result">Result</string>
+    <string name="first_frag">First Frag</string>
+    <string name="firstnum">first num</string>
+    <string name="secondnum">second num</string>
+    <string name="operator">operator</string>
 </resources>
