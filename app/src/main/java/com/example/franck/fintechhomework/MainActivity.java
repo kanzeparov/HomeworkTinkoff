@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements MyFragmentListene
     public void OnClickFragment(View view) {
 
         fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
 
         switch (view.getId()) {
             case R.id.btnadd:
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements MyFragmentListene
                 }
                 break;
             case R.id.btnback:
-                fragmentManager.beginTransaction().addToBackStack(null).commit();
+                fragmentManager.popBackStack();
                 break;
             case R.id.btnsecond:
                 if (fragmentManager.findFragmentByTag(SecondNumFragment.TAG) == null) {
