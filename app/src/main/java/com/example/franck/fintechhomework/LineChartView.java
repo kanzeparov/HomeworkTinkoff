@@ -7,7 +7,6 @@ import android.graphics.Paint;
 
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.util.FloatMath;
 import android.view.View;
 
 /**
@@ -44,16 +43,9 @@ public class LineChartView extends View {
     private float getYPos(float value) {
         float height = getHeight() - getPaddingTop() - getPaddingBottom();
         float maxValue = getMax(datapoints);
-
-        // масштабирования под высоту view
         value = (value / maxValue) * height;
-
-        // инверсия
         value = height - value;
-
-        // смещение чтобы учесть padding
         value += getPaddingTop();
-
         return value;
     }
 
@@ -64,18 +56,14 @@ public class LineChartView extends View {
     private float getXPos(float value) {
         float width = getWidth() - getPaddingLeft() - getPaddingRight();
         float maxValue = datapoints.length - 1;
-
-        // масштабирования под размер view
         value = (value / maxValue) * width;
-
-        // смещение чтобы учесть padding
         value += getPaddingLeft();
-
         return value;
     }
     @Override
     protected void onDraw(Canvas canvas) {
-        drawBackground(canvas);
+        drawBackgroundHorizontal(canvas);
+        drawBackgroundVertical(canvas);
         drawLineChart(canvas);
     }
 
@@ -85,25 +73,49 @@ public class LineChartView extends View {
         for (int i = 1; i < datapoints.length; i++) {
             path.lineTo(getXPos(i), getYPos(datapoints[i]));
         }
-
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.setTextSize(30);
+        paint.setStrokeWidth(1);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(4);
+
         paint.setColor(0xFF33B5E5);
         paint.setAntiAlias(true);
         paint.setShadowLayer(4, 2, 2, 0x80000000);
         canvas.drawPath(path, paint);
+        canvas.drawText("Ordinate name", getPaddingLeft(), getHeight() / 2, paint);
         paint.setShadowLayer(0, 0, 0, 0);
     }
 
-    private void drawBackground(Canvas canvas) {
+    private void drawBackgroundHorizontal(Canvas canvas) {
         float maxValue = getMax(datapoints);
         int range = getLineDistance(maxValue);
 
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.GRAY);
-        for (int y = 0; y < maxValue; y += range) {
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.setTextSize(30);
+        paint.setStrokeWidth(1);
+        for (int y = 0; y < maxValue ; y += range) {
             final float yPos = getYPos(y);
             canvas.drawLine(0, yPos, getWidth(), yPos, paint);
+            canvas.drawText(String.valueOf(y), getPaddingLeft(), yPos - 2, paint);
+        }
+    }
+
+    private void drawBackgroundVertical(Canvas canvas) {
+        float maxValue = getMax(datapoints);
+        int range = getLineDistance(maxValue);
+
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.GRAY);
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.setTextSize(30);
+        paint.setStrokeWidth(1);
+        for (int x = 0; x < maxValue * 2; x += range) {
+            final float xPos = getXPos(x);
+            canvas.drawLine(xPos, 0, xPos, getHeight(), paint);
+            canvas.drawText(String.valueOf(x), xPos - 2, getHeight() - getPaddingBottom(), paint);
         }
     }
 
