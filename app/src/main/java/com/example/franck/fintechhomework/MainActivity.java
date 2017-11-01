@@ -21,6 +21,14 @@ public class MainActivity extends AppCompatActivity {
         lineChartView = (LineChartView) findViewById(R.id.linechart);
         lineChartView.setChartData(getRandomData());
 
+        buttonBlue = (Button) findViewById(R.id.btnBlue);
+
+        buttonBlue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lineChartView.setChartData(getRandomData(), Color.BLUE);
+            }
+        });
     }
 
 

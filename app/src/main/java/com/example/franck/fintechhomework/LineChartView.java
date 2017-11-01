@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 
 /**
  * Created by Franck on 30.10.2017.
@@ -25,17 +26,26 @@ public class LineChartView extends View {
         this.color = color;
     }
 
-    /**Устанавливает данные для графика. Точки имеют
-     * положительное значение и равноудалены друг от друга по х
-     * График будет масштабируемым, поэтому будет использоваться
-     * вся высота view.
-     *
-     * @param datapoints
-     *     y - значения линейного графика
-     */
+
     public void setChartData(float[] datapoints) {
         this.datapoints = datapoints.clone();
     }
+
+    public void setChartData(float[] datapoints, int color) {
+        this.color = color;
+        this.datapoints = datapoints.clone();
+        invalidate();
+        removeCallbacks(animator);
+        post(animator);
+
+    }
+
+    private Runnable animator = new Runnable() {
+        @Override
+        public void run() {
+            invalidate();
+        }
+    };
     private float getMax(float[] array) {
         float max = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -89,7 +99,7 @@ public class LineChartView extends View {
         paint.setAntiAlias(true);
         paint.setShadowLayer(4, 2, 2, 0x80000000);
         canvas.drawPath(path, paint);
-        canvas.drawText("Ordinate name", getPaddingLeft(), getHeight() / 2, paint);
+        canvas.drawText("Ordinate name", getPaddingLeft(), getPaddingTop(), paint);
         paint.setShadowLayer(0, 0, 0, 0);
     }
 
