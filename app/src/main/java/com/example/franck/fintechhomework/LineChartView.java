@@ -19,6 +19,11 @@ public class LineChartView extends View {
 
     private float[] datapoints = new float[] {};
     private Paint paint = new Paint();
+    private int color = Color.BLACK;
+
+    public void setColor(int color) {
+        this.color = color;
+    }
 
     /**Устанавливает данные для графика. Точки имеют
      * положительное значение и равноудалены друг от друга по х
@@ -64,10 +69,11 @@ public class LineChartView extends View {
     protected void onDraw(Canvas canvas) {
         drawBackgroundHorizontal(canvas);
         drawBackgroundVertical(canvas);
-        drawLineChart(canvas);
+        drawLineChart(canvas, color);
     }
 
-    private void drawLineChart(Canvas canvas) {
+
+    private void drawLineChart(Canvas canvas, int color) {
         Path path = new Path();
         path.moveTo(getXPos(0), getYPos(datapoints[0]));
         for (int i = 1; i < datapoints.length; i++) {
@@ -79,7 +85,7 @@ public class LineChartView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(4);
 
-        paint.setColor(0xFF33B5E5);
+        paint.setColor(color);
         paint.setAntiAlias(true);
         paint.setShadowLayer(4, 2, 2, 0x80000000);
         canvas.drawPath(path, paint);
@@ -94,27 +100,37 @@ public class LineChartView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.GRAY);
         paint.setTextAlign(Paint.Align.LEFT);
-        paint.setTextSize(30);
+        paint.setTextSize(12);
         paint.setStrokeWidth(1);
         for (int y = 0; y < maxValue ; y += range) {
             final float yPos = getYPos(y);
             canvas.drawLine(0, yPos, getWidth(), yPos, paint);
             canvas.drawText(String.valueOf(y), getPaddingLeft(), yPos - 2, paint);
         }
+
+        for (float y = 0; y < maxValue ; y += 0.5) {
+            final float yPos = getYPos(y);
+            canvas.drawText(String.valueOf(y), getPaddingLeft(), yPos - 2, paint);
+        }
     }
 
     private void drawBackgroundVertical(Canvas canvas) {
         float maxValue = getMax(datapoints);
-        int range = getLineDistance(maxValue);
+        int range = getLineDistance(maxValue / 2);
 
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.GRAY);
         paint.setTextAlign(Paint.Align.LEFT);
-        paint.setTextSize(30);
+        paint.setTextSize(12);
         paint.setStrokeWidth(1);
-        for (int x = 0; x < maxValue * 2; x += range) {
+        for (int x = 0; x < maxValue ; x += range) {
             final float xPos = getXPos(x);
             canvas.drawLine(xPos, 0, xPos, getHeight(), paint);
+//            canvas.drawText(String.valueOf(x), xPos - 2, getHeight() - getPaddingBottom(), paint);
+        }
+
+        for (float x = 0; x < maxValue ; x += 0.5) {
+            final float xPos = getXPos(x);
             canvas.drawText(String.valueOf(x), xPos - 2, getHeight() - getPaddingBottom(), paint);
         }
     }
